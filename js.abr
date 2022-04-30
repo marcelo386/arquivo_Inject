@@ -2326,7 +2326,8 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
   }
 }
 
-//WPPCONNECT v2.0.2
+//WPPCONNECT v2.1.2
+
 
 /*! For license information please see wppconnect-wa.js.LICENSE.txt */ ! function(e, t) {
     "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? exports.WPP = t() : e.WPP = t()
@@ -6622,7 +6623,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                 "use strict";
                 Object.defineProperty(t, "__esModule", {
                     value: !0
-                }), t.unmute = t.starMessage = t.sendVCardContactMessage = t.sendTextMessage = t.sendRawMessage = t.sendListMessage = t.sendFileMessage = t.prepareRawMessage = t.prepareMessageButtons = t.prepareLinkPreview = t.openChatFromUnread = t.openChatBottom = t.openChatAt = t.mute = t.markIsUnread = t.markIsRecording = t.markIsRead = t.markIsPaused = t.markIsComposing = t.getMessages = t.getMessageById = t.get = t.generateMessageID = t.find = t.downloadMedia = t.deleteMessage = t.delete = t.clear = t.canMute = void 0;
+                }), t.unmute = t.starMessage = t.sendVCardContactMessage = t.sendTextMessage = t.sendRawMessage = t.sendLocationMessage = t.sendListMessage = t.sendFileMessage = t.prepareRawMessage = t.prepareMessageButtons = t.prepareLinkPreview = t.openChatFromUnread = t.openChatBottom = t.openChatAt = t.mute = t.markIsUnread = t.markIsRecording = t.markIsRead = t.markIsPaused = t.markIsComposing = t.getMessages = t.getMessageById = t.get = t.generateMessageID = t.find = t.downloadMedia = t.deleteMessage = t.delete = t.clear = t.canMute = void 0;
                 var n = r(1314);
                 Object.defineProperty(t, "canMute", {
                     enumerable: !0,
@@ -6791,39 +6792,46 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                         return x.sendListMessage
                     }
                 });
-                var C = r(682);
+                var C = r(2814);
+                Object.defineProperty(t, "sendLocationMessage", {
+                    enumerable: !0,
+                    get: function() {
+                        return C.sendLocationMessage
+                    }
+                });
+                var S = r(682);
                 Object.defineProperty(t, "sendRawMessage", {
                     enumerable: !0,
                     get: function() {
-                        return C.sendRawMessage
+                        return S.sendRawMessage
                     }
                 });
-                var S = r(6627);
+                var I = r(6627);
                 Object.defineProperty(t, "sendTextMessage", {
                     enumerable: !0,
                     get: function() {
-                        return S.sendTextMessage
+                        return I.sendTextMessage
                     }
                 });
-                var I = r(6017);
+                var E = r(6017);
                 Object.defineProperty(t, "sendVCardContactMessage", {
                     enumerable: !0,
                     get: function() {
-                        return I.sendVCardContactMessage
+                        return E.sendVCardContactMessage
                     }
                 });
-                var E = r(7709);
+                var k = r(7709);
                 Object.defineProperty(t, "starMessage", {
                     enumerable: !0,
                     get: function() {
-                        return E.starMessage
+                        return k.starMessage
                     }
                 });
-                var k = r(8205);
+                var B = r(8205);
                 Object.defineProperty(t, "unmute", {
                     enumerable: !0,
                     get: function() {
-                        return k.unmute
+                        return B.unmute
                     }
                 })
             },
@@ -7094,7 +7102,6 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                             };
                             if (n.footer && (e.hydratedFooterText = n.footer), n.caption && (e.hydratedContentText = n.caption), n.title && (e.hydratedTitleText = n.title), o.conversation) e.hydratedContentText = o.conversation, delete o.conversation;
                             else if (null === (r = o.extendedTextMessage) || void 0 === r ? void 0 : r.text) e.hydratedContentText = o.extendedTextMessage.text, delete o.extendedTextMessage;
-                            else if (o.locationMessage) e.locationMessage = o.locationMessage, delete o.locationMessage;
                             else {
                                 let t;
                                 const r = ["documentMessage", "imageMessage", "locationMessage", "videoMessage"];
@@ -7103,7 +7110,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                                         t = e;
                                         break
                                     } if (!t) return o;
-                                e[t] = o[t], e.hydratedTitleText && !e.hydratedContentText && (e.hydratedContentText = e.hydratedTitleText), e.hydratedContentText = e.hydratedContentText || " ", delete e.hydratedTitleText, delete o[t]
+                                e[t] = o[t], e.hydratedTitleText && !e.hydratedContentText && (e.hydratedContentText = e.hydratedTitleText), delete e.hydratedTitleText, "locationMessage" === t && (e.hydratedContentText || !o[t].name && !o[t].address || (e.hydratedContentText = o[t].name && o[t].address ? `${o[t].name}\n${o[t].address}` : o[t].name || o[t].address || "")), e.hydratedContentText = e.hydratedContentText || " ", delete o[t]
                             }
                             o.templateMessage = {
                                 hydratedTemplate: e
@@ -7204,7 +7211,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                     const n = (r = Object.assign(Object.assign(Object.assign({}, u.defaultSendMessageOptions), {
                             type: "auto-detect"
                         }), r)).createChat ? await (0, i.assertFindChat)(e) : (0, i.assertGetChat)(e),
-                        o = await (0, s.convertToFile)(t, r.mimetype, r.caption || r.filename),
+                        o = await (0, s.convertToFile)(t, r.mimetype, r.filename),
                         d = o.name,
                         f = await a.OpaqueData.createFromData(o, o.type),
                         p = {};
@@ -7212,12 +7219,14 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                     "audio" === r.type ? p.isPtt = r.isPtt : "image" === r.type ? m = r.isViewOnce : "video" === r.type ? p.asGif = r.isGif : "document" === r.type ? p.asDocument = !0 : "sticker" === r.type && (p.asSticker = !0);
                     const h = a.MediaPrep.prepRawMedia(f, p);
                     let g = await (0, c.prepareRawMessage)(n, {
-                        caption: d,
-                        filename: d
+                        caption: r.caption || d,
+                        filename: d,
+                        footer: r.footer
                     }, r);
                     g = (0, c.prepareMessageButtons)(g, r), r.markIsRead && (l("marking chat is read before send file"), await (0, c.markIsRead)(n.id).catch((() => null))), l(`sending message (${r.type}) with id ${g.id}`);
                     const y = h.sendToChat(n, {
                             caption: r.caption,
+                            footer: r.footer,
                             isViewOnce: m,
                             productMsgOptions: g
                         }),
@@ -7244,28 +7253,86 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                     }
                 }
             },
-            8851: (e, t, r) => {
+            8851: function(e, t, r) {
                 "use strict";
+                var n = this && this.__createBinding || (Object.create ? function(e, t, r, n) {
+                        void 0 === n && (n = r);
+                        var o = Object.getOwnPropertyDescriptor(t, r);
+                        o && !("get" in o ? !t.__esModule : o.writable || o.configurable) || (o = {
+                            enumerable: !0,
+                            get: function() {
+                                return t[r]
+                            }
+                        }), Object.defineProperty(e, n, o)
+                    } : function(e, t, r, n) {
+                        void 0 === n && (n = r), e[n] = t[r]
+                    }),
+                    o = this && this.__setModuleDefault || (Object.create ? function(e, t) {
+                        Object.defineProperty(e, "default", {
+                            enumerable: !0,
+                            value: t
+                        })
+                    } : function(e, t) {
+                        e.default = t
+                    }),
+                    i = this && this.__importStar || function(e) {
+                        if (e && e.__esModule) return e;
+                        var t = {};
+                        if (null != e)
+                            for (var r in e) "default" !== r && Object.prototype.hasOwnProperty.call(e, r) && n(t, e, r);
+                        return o(t, e), t
+                    };
                 Object.defineProperty(t, "__esModule", {
                     value: !0
                 }), t.sendListMessage = void 0;
-                const n = r(8910),
-                    o = r(8381),
-                    i = r(758);
+                const s = r(8910),
+                    a = i(r(7046)),
+                    u = r(8785),
+                    c = r(1489),
+                    l = r(8381),
+                    d = r(758);
                 t.sendListMessage = async function(e, t) {
-                    const r = (t = Object.assign(Object.assign({}, o.defaultSendMessageOptions), t)).sections;
-                    if (!Array.isArray(r)) throw new n.WPPError("invalid_list_type", "Sections must be an array");
-                    if (0 === r.length || r.length > 10) throw new n.WPPError("invalid_list_size", "Sections options must have between 1 and 10 options");
-                    const s = {
+                    const r = (t = Object.assign(Object.assign({}, l.defaultSendMessageOptions), t)).sections;
+                    if (!Array.isArray(r)) throw new s.WPPError("invalid_list_type", "Sections must be an array");
+                    if (0 === r.length || r.length > 10) throw new s.WPPError("invalid_list_size", "Sections options must have between 1 and 10 options");
+                    const n = {
                         type: "list",
                         list: {
                             buttonText: t.buttonText,
-                            description: t.description,
+                            description: t.description || " ",
+                            title: t.title,
+                            footerText: t.footer,
                             listType: 1,
                             sections: r
-                        }
+                        },
+                        footer: t.footer
                     };
-                    return await (0, i.sendRawMessage)(e, s, t)
+                    return await (0, d.sendRawMessage)(e, n, t)
+                }, a.onInjected((() => {
+                    (0, u.wrapModuleFunction)(c.typeAttributeFromProtobuf, ((e, ...t) => {
+                        const [r] = t;
+                        return r.listMessage ? "text" : e(...t)
+                    }))
+                }))
+            },
+            2814: (e, t, r) => {
+                "use strict";
+                Object.defineProperty(t, "__esModule", {
+                    value: !0
+                }), t.sendLocationMessage = void 0;
+                const n = r(8381),
+                    o = r(758),
+                    i = r(9872);
+                t.sendLocationMessage = async function(e, t) {
+                    const r = (t = Object.assign(Object.assign({}, n.defaultSendMessageOptions), t)).name && t.address ? `${t.name}\n${t.address}` : t.name || t.address || "";
+                    let s = {
+                        type: "location",
+                        lat: t.lat,
+                        lng: t.lng,
+                        loc: r,
+                        clientUrl: t.url
+                    };
+                    return s = (0, i.prepareMessageButtons)(s, t), await (0, o.sendRawMessage)(e, s, t)
                 }
             },
             682: function(e, t, r) {
@@ -9090,7 +9157,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                     get: function() {
                         return u.waitFor
                     }
-                }), t.version = "2.0.2", t.supportedWhatsappWeb = ">=2.2210.6-beta", t.license = "Apache-2.0", s.injectLoader()
+                }), t.version = "2.1.2", t.supportedWhatsappWeb = ">=2.2210.6-beta", t.license = "Apache-2.0", s.injectLoader()
             },
             9203: (e, t, r) => {
                 "use strict";
@@ -11598,4 +11665,3 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
     var __webpack_exports__ = __webpack_require__(3607);
     return __webpack_exports__
 })()));
-
