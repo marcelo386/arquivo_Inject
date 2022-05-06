@@ -11671,7 +11671,7 @@ window.WAPI.getMessageById2 = async function(UniqueID) {
 
   if (result) {     
     try {            	       
-		 console.log("getMessageById:" + JSON.stringify(result));
+		 SetConsoleMessage("getMessageById", JSON.stringify(result));
 		 
     } catch (err) { 
 		console.log(err); 
