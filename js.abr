@@ -11978,3 +11978,21 @@ window.WAPI.getMessageById2 = async function(UniqueID) {
 	  
    }  
 };
+
+window.WAPI.sendFileMessage2 = async function(chatid, content, options) {
+  const result = await WPP.chat.sendFileMessage(chatid, content, options);
+
+  if (result) {     
+    try {            	       
+		 SetConsoleMessage("sendFileMessage", JSON.stringify(result));
+		 
+    } catch (err) { 
+		console.log(err); 
+	  };      
+	  
+   }else {
+            console.log(err);
+            
+        }  
+};
+
