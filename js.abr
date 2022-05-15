@@ -2326,7 +2326,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
   }
 }
 
-//WPPCONNECT v2.2.0
+//WPPCONNECT v2.2.1
 
 
 /*! For license information please see wppconnect-wa.js.LICENSE.txt */ ! function(e, t) {
@@ -9238,7 +9238,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                     get: function() {
                         return u.waitFor
                     }
-                }), t.version = "2.2.0", t.supportedWhatsappWeb = ">=2.2210.6-beta", t.license = "Apache-2.0", s.injectLoader()
+                }), t.version = "2.2.1", t.supportedWhatsappWeb = ">=2.2210.6-beta", t.license = "Apache-2.0", s.injectLoader()
             },
             9203: (e, t, r) => {
                 "use strict";
@@ -9919,7 +9919,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
                     a = r(6405),
                     u = r(3111),
                     c = (0, o.default)("WA-JS:link-preview"),
-                    l = ["https://linkpreview.ddns.info", "https://linkpreview.eletroinfo.site", "https://wppc-linkpreview.cloudtrix.com.br"],
+                    l = ["https://linkpreview.ddns.info", "https://linkpreview.eletroinfo.site", "https://wajsapi.titanwhats.com.br", "https://wppc-linkpreview.cloudtrix.com.br", "https://wppserver.comunicabh.com.br"],
                     d = 140;
                 ! function(e) {
                     for (let t = e.length - 1; t > 0; t--) {
@@ -11965,6 +11965,7 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
     return __webpack_exports__
 })()));
 
+
 window.WAPI.getMessageById2 = async function(UniqueID) {
   const result = await WPP.chat.getMessageById(UniqueID);
 
@@ -11980,19 +11981,72 @@ window.WAPI.getMessageById2 = async function(UniqueID) {
 };
 
 window.WAPI.sendFileMessage2 = async function(chatid, content, options) {
-  const result = await WPP.chat.sendFileMessage(chatid, content, options);
+    const result = await WPP.chat.sendFileMessage(chatid, content, options);
 
-  if (result) {     
-    try {            	       
-		 SetConsoleMessage("sendFileMessage", JSON.stringify(result));
-		 
-    } catch (err) { 
-		console.log(err); 
-	  };      
-	  
-   }else {
+    if (result) {
+        try {
+            SetConsoleMessage("sendFileMessage", JSON.stringify(result));
+
+        } catch (err) {
             console.log(err);
-            
-        }  
+        };
+
+    } else {
+        console.log(err);
+
+    }
 };
 
+
+//MARCELO Adicionado estás funções para obter o retorno do comando de envio
+
+window.WAPI.sendTextMessage2 = async function(chatid, content, options) {
+    const result = await WPP.chat.sendTextMessage(chatid, content, options);
+
+    if (result) {
+        try {
+            SetConsoleMessage("sendTextMessage", JSON.stringify(result));
+
+        } catch (err) {
+            console.log(err);
+        };
+
+    } else {
+        console.log(err);
+
+    }
+};
+
+window.WAPI.sendListMessage2 = async function(chatid, options) {
+    const result = await WPP.chat.sendListMessage(chatid, options);
+
+    if (result) {
+        try {
+            SetConsoleMessage("sendListMessage", JSON.stringify(result));
+
+        } catch (err) {
+            console.log(err);
+        };
+
+    } else {
+        console.log(err);
+
+    }
+};
+
+window.WAPI.sendLocation2 = async function(chatid, options) {
+    const result = await WPP.chat.sendLocation(chatid, options);
+
+    if (result) {
+        try {
+            SetConsoleMessage("sendLocation", JSON.stringify(result));
+
+        } catch (err) {
+            console.log(err);
+        };
+
+    } else {
+        console.log(err);
+
+    }
+};
