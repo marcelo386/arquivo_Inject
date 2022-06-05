@@ -12461,3 +12461,26 @@ window.WAPI.sendFileMessage2Ex = async function(chatid, content, options,xSeuID)
 
     }
 };
+
+window.WAPI.sendListMessage2Ex = async function(chatid, options) {
+    const result = await WPP.chat.sendListMessage(chatid, options);
+
+    if (result) {
+        try {
+             Obj = {
+               Seuid: xSeuID,
+               JsonMessage: JSON.stringify(result)
+             }
+	
+            SetConsoleMessage("sendListMessage", JSON.stringify(result));
+
+        } catch (err) {
+            console.log(err);
+        };
+
+    } else {
+        console.log(err);
+
+    }
+};
+
