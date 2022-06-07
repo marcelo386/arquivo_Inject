@@ -1,5 +1,5 @@
 //Version_JS;Version_TInjectMin;Version_CEF4Min;
-//1.1.0.0;1.0.0.9;78.3.0
+//1.2.0.0;1.0.0.9;78.3.0
 //
 //
 
@@ -1178,30 +1178,11 @@ window.WAPI.sendSeen = async function (id) {
     return false;
 };
 
-/*
-//Apos receber uma mensagem, e nao responder, essa funcao nao funciona de forma isolada
-window.WAPI.sendSeen = function(id, done) {
-    var chat = window.WAPI.getChat(id);
-    if (chat !== undefined) {
-        if (done !== undefined) {
-            Store.SendSeen(Store.Chat.models[0], false).then(function() {
-                done(true);
-            });
-            return true;
-        } else {
-            Store.SendSeen(Store.Chat.models[0], false);
-            return true;
-        }
-    }
-    if (done !== undefined) done();
-    return false;
-}; */
 
-/*
 //Alterado em 20/02/2020 Creditos: by Lucas
 //Apos receber uma mensagem, e nao responder, essa funcao funciona de forma isolada
 window.WAPI.sendSeen = function(id, done) {
-    var chat = window.WAPI.getChat(id);
+    let chat = window.WAPI.getChat(id);
     if (chat !== undefined) {
         if (done !== undefined) {
             Store.SendSeen(Store.Chat.models[0], false).then(function() {
@@ -1581,7 +1562,7 @@ window.WAPI.sendImage = function(imgBase64, chatid, filename, caption) {
                        
             mc.processAttachments([{file: mediaBlob}, 1], chat, 1).then(() => {
                 //let media = mc.models[0]; depredated Marcelo
-		let media = mc.getModelsArray();
+		let media = mc._models[0];
                 media.sendToChat(chat, {caption:caption});
                 return true;
             });
