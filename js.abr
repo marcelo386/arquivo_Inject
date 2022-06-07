@@ -1170,33 +1170,13 @@ window.WAPI.sendMessage2 = function(id, message, done) {
 //Funcao adicionada em 18/06/2020 by Mike
 window.WAPI.sendSeen = async function (id) {
     if (!id) return false;
-    var chat = window.WAPI.getChat(id);
+    let chat = window.WAPI.getChat(id);
     if (chat !== undefined) {
             await Store.ReadSeen.sendSeen(chat, false);
             return true;
     }
     return false;
 };
-
-
-//Alterado em 20/02/2020 Creditos: by Lucas
-//Apos receber uma mensagem, e nao responder, essa funcao funciona de forma isolada
-window.WAPI.sendSeen = function(id, done) {
-    let chat = window.WAPI.getChat(id);
-    if (chat !== undefined) {
-        if (done !== undefined) {
-            Store.SendSeen(Store.Chat.models[0], false).then(function() {
-                done(true);
-            });
-            return true;
-        } else {
-            Store.SendSeen(Store.Chat.models[0], false);
-            return true;
-        }
-    }
-    if (done !== undefined) done();
-    return false;
-}; */
 
 function isChatMessage(message) {
     if (message.isSentByMe) {
