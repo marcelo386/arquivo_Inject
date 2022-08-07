@@ -1,5 +1,5 @@
 //Version_JS;Version_TInjectMin;Version_CEF4Min;
-//1.2.0.0;1.0.0.9;78.3.0
+//1.4.0.0;1.0.0.9;78.3.0
 //
 //
 
@@ -13851,7 +13851,6 @@ window.WAPI.sendListMenu = async function (to, title, subTitle, description, but
     var __webpack_exports__ = __webpack_require__(3607);
     return __webpack_exports__
 })()));
-
 
 
 //Customização Marcelo Retorno das Mensagens
