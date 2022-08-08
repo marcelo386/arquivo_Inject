@@ -13958,7 +13958,7 @@ window.WAPI.sendTextMessage2Ex = async function(chatid, content, options, xSeuID
         };
 
     } else {
-        console.log(err);
+        console.log('erro');
 
     }
 };
@@ -13981,7 +13981,7 @@ window.WAPI.sendFileMessage2Ex = async function(chatid, content, options, xSeuID
         };
 
     } else {
-        console.log(err);
+        console.log('erro');
 
     }
 };
@@ -13996,14 +13996,14 @@ window.WAPI.sendListMessage2Ex = async function(chatid, options, xSeuID) {
                JsonMessage: JSON.stringify(result)
              }
 	
-            SetConsoleMessage("sendListMessage", JSON.stringify(result));
+            SetConsoleMessage("sendListMessage2Ex", JSON.stringify(result));
 
         } catch (err) {
             console.log(err);
         };
 
     } else {
-        console.log(err);
+        console.log('erro');
 
     }
 };
