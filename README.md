@@ -1,2 +1,2 @@
 # arquivo_Inject
-Arquivo js.abr TInject   WAPI WhatsAppWeb
+Arquivo js.abr Inject   WAPI WhatsAppWeb
