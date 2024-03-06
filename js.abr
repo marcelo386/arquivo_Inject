@@ -1,8 +1,7 @@
 //Version_JS;Version_TInjectMin;Version_CEF4Min;
-//2.0.0.1;1.0.0.9;78.3.0
+//2.0.0.2;1.0.0.9;78.3.0
 //
 //
-
 
 function replacer(key, value) {
     if (key === "msgs") {
@@ -416,7 +415,15 @@ window.WAPI._serializeMessageObj = (obj) => {
 		//add 02/06/2020 mike <--
 		
 		//sender: obj["senderObj"] ? WAPI._serializeContactObj(obj["senderObj"]) : null,
-        sender: {id: obj.from ? obj.from : undefined, isMe: obj.id.fromMe, pushname: obj.notifyName ?obj.notifyName: "", name: obj.notifyName ?obj.notifyName: "", FormattedName: obj.notifyName ?obj.notifyName: ""} ,
+        //sender: {id: obj.from ? obj.from : undefined, isMe: obj.id.fromMe, pushname: obj.notifyName ?obj.notifyName: "", name: obj.notifyName ?obj.notifyName: "", FormattedName: obj.notifyName ?obj.notifyName: ""} ,
+
+        sender: {
+            id: obj.from || undefined,
+            isMe: obj.id.fromMe,
+            pushname: obj.notifyName || "",
+            name: obj.notifyName || "",
+            FormattedName: obj.notifyName || ""
+          },
 
         timestamp: obj["t"],
         content: obj["body"],
@@ -1474,14 +1481,15 @@ window.WAPI.getUnreadMessages = async function(includeMe, includeNotifications, 
 
     if (chats) {
         try {
-          for (var i = 0; i < chats.length; i++) {          
-              let contacts = await WPP.contact.get(chats[i].id._serialized);
-              
+          for (var i = 0; i < chats.length; i++) {
               chats[i] = chats[i].toJSON();  
 
               let isGroup = chats[i].id._serialized.includes('@g.us');
               chats[i].isGroup = isGroup;
               chats[i].formattedTitle = chats[i].name;
+
+              /*A consulta buscando o contato foi desativado para melhorar a performance*/
+              /*let contacts = await WPP.contact.get(chats[i].id._serialized);
 
               // Verifique se os contatos existem e têm comprimento maior que zero
               if (contacts && Object.keys(contacts).length > 0) {   
@@ -1497,8 +1505,21 @@ window.WAPI.getUnreadMessages = async function(includeMe, includeNotifications, 
                       isEnterprise: contacts.isEnterprise
                     };
                   //console.log(`Chats[${i}] com propriedade "contact":`, chats[i]);
-              }
+              }*/
   
+              
+              let profilePhoto = ".";
+
+              //Criado Contact passando dados Basicos para manter a compatibilidade, como a versão anterior
+              chats[i].contact = {
+                id: chats[i].id._serialized,
+                name: chats[i].name,
+                pushname: chats[i].name,
+                formattedName: chats[i].name,
+                profilePicThumb: profilePhoto                
+              };
+
+              //Deletar JSON Array das Mensagens do nó msgs, buscar logo abaixo as Mensagens Não Lidas deste Chat
               delete chats[i].msgs;
           }
           
@@ -1509,8 +1530,7 @@ window.WAPI.getUnreadMessages = async function(includeMe, includeNotifications, 
       //console.log('VAZIO');
     }
          
-
-    //const chats = WPP.whatsapp.Chat.getModelsArray();
+    //const chats = WPP.whatsapp.Chat.getModelsArray(); deprecated
     let output = [];
 
     for (let chat in chats) {
@@ -1523,7 +1543,7 @@ window.WAPI.getUnreadMessages = async function(includeMe, includeNotifications, 
 
         messageGroup.messages = [];
 
-        //const messages = messageGroupObj.msgs._models;        
+        //const messages = messageGroupObj.msgs._models; deprecated       
         let messages = await WPP.chat.getMessages(chats[chat].id._serialized, {count: -1, onlyUnread: true});
         
         for (let i = messages.length - 1; i >= 0; i--) {
